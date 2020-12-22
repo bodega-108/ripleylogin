@@ -1,3 +1,11 @@
+
+# CHALLENGE RIPLEY FULLSTACK
+
+El endpoint para el challenge es : https://heroku-ripley.herokuapp.com/cliente?rut=155613092
+
+Se asignaron 3 rut para las pruebas.
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
