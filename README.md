@@ -5,6 +5,11 @@ El endpoint para el challenge es : https://heroku-ripley.herokuapp.com/cliente?r
 
 Se asignaron 3 rut para las pruebas.
 
+RUTS DE PRUEBA: 
+    - 15561309-2
+    - 13353951-3
+    - 21312474-9
+
 
 # Getting Started with Create React App
 
