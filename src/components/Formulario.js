@@ -4,12 +4,11 @@ import { validateRut } from '@fdograph/rut-utilities';
 import Error from './Error.js';
 import Spinner from './Spinner.js';
 
-export const Formulario = ({consulta, cuentaCLiente, showCuenta}) => {
+export const Formulario = ({consulta,guardarData,handleLoading, cargando}) => {
 
     //State de ingreso
     const [cuenta, handlerCuenta] = useState({
-        rut:'',
-        password:''
+        rut:''
     });
 
     //State de errores de
@@ -18,7 +17,7 @@ export const Formulario = ({consulta, cuentaCLiente, showCuenta}) => {
     //state para mensajes de error"'
     const [mensaje_error, handleMensajeError] = useState("");
     const [aprobacion, handleAprobacion] = useState(false);
-    const [loading, handleLoading] = useState(false);
+ 
   
     //tiping
     const handleChange = e => {
@@ -33,7 +32,6 @@ export const Formulario = ({consulta, cuentaCLiente, showCuenta}) => {
 
         //Validar Rut
          //Extraer Valores
-        const { rut, password } = cuenta;
       
 
         if(rut.length >= 5 && !aprobacion) {
@@ -56,64 +54,45 @@ export const Formulario = ({consulta, cuentaCLiente, showCuenta}) => {
             
         }
       
-        if(password.length >= 0 && aprobacion){
-            handleError(false);
-            
-        }
+
         
     
     }
 
     //Extraer Valores
-    const { rut, password } = cuenta;
+const {rut} = cuenta;
 
     const submitCuenta = e =>{
         
+        console.log(rut);
         e.preventDefault();
-        console.log(aprobacion);
+      
+        guardarData({rut:rut});
         
-        if(rut.trim() === '' || password.trim() === ''){
+        if(rut.trim() === '' ){
             
-            console.log('Pista, Debe ingresar cualquier password');
+          
             
             handleError(true);
-            handleMensajeError('Dede ingresar clave de 4 digitos');
-
+            handleMensajeError('Dede ingresar un rut');
 
             return;
 
         }
-        let cliente = {
-            nombre:'',
-            apellido:'',
-            saldo:'',
-            fechaNacimiento:'',
-            rut:`${rut}`
-        }
-        cuentaCLiente(cliente);
-       
+
 
         handleLoading(true);
-        consulta();
+        consulta(rut);
     
-    
-       
-        setTimeout(()=>{
-            handleLoading(false);
-            showCuenta(true);
-          
-
-        }, 3000);
         
     }
     
-
     return (
         <Fragment>
             
             <div className="formulario-cuenta container d-flex  justify-content-center">
             
-            { loading ? 
+            { cargando ? 
             <div className="loading text-center">
             <Spinner/> 
             <p className="mt-2">ingresando</p>
@@ -134,16 +113,7 @@ export const Formulario = ({consulta, cuentaCLiente, showCuenta}) => {
                 </div>
            
                 
-            <div className="mb-3">
-            <label className="text-right" >Clave</label>
-                <input
-                type="password"
-                name="password"
-                placeholder="ingrese clave"
-                className="form-control"
-                onChange={handleChange}
-                />
-            </div>
+
             { error ? <Error mensaje ={mensaje_error}/>: null}
                 
                 <button

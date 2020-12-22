@@ -9,22 +9,31 @@ function App() {
   });
  
   const [ showCuenta, handleShowCUenta] = useState(false);
+  const [datos,guardarData] = useState({
+    rut:''
+  });
+  const [loading, handleLoading] = useState(false);
+  
 
-
-
-  const consultarApi = async () => {
+  const consultarApi = async (rut) => {
+    console.log("Este es el rutificador" + datos.rut);
     
+    
+
     const options = {
       method: 'POST'
     }
     
-    console.log('consultando...');
-    const {rut} = cuentaCLiente
-    const api = await fetch(`http://localhost:8080/saldo?rut=${rut}`,options);
+    const api = await fetch(`https://heroku-ripley.herokuapp.com/cliente?rut=${rut}`,options);
+    //const api = await fetch(`http://localhost:8080/cliente?rut=${rut}`,options);
     const data = await api.json();
     console.log(data);
-
     obtenerCuenta(data);
+    setTimeout(()=>{
+      handleLoading(false);
+      handleShowCUenta(true);
+    },2000)
+    
     
     
   }
@@ -45,9 +54,10 @@ function App() {
             />   : <div className='box-form'>
               <Formulario 
                 consulta = { consultarApi }
-                cuentaCLiente = {obtenerCuenta}
-                showCuenta = {handleShowCUenta}
-                
+                handleLoading = { handleLoading}
+                guardarData = {guardarData}
+                cargando = {loading}
+               
               />
             </div>
 }

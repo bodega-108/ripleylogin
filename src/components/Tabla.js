@@ -3,7 +3,7 @@ import React from "react";
 const Tabla = ({ cuentaCLientedata }) => {
 
     // Extarer datos
-    const {nombre, apellido, saldo, fechaNacimiento} = cuentaCLientedata;
+    const {nombre, apellido, rut, fechaNacimiento} = cuentaCLientedata;
 
 
   return (
@@ -14,7 +14,7 @@ const Tabla = ({ cuentaCLientedata }) => {
           <h5 className="card-title">Nombre: {nombre}</h5>
           <h5 className="card-title">Apellido: {apellido}</h5>
           <h5 className="card-title">Fecha de Nacimiento: {fechaNacimiento}</h5>
-          <h5 className="card-title">Saldo en cuenta: {saldo}$</h5>
+          <h5 className="card-title">Rut: {rut}</h5>
         </div>
       </div>
     </div>
